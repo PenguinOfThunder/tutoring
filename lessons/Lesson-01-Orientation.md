@@ -143,6 +143,7 @@ If you haven't already, install Docker Desktop with WSL2 integration:
      "customizations": {
        "vscode": {
          "extensions": [
+           "ms-vscode-remote.remote-containers",
            "ms-dotnettools.csharp",
            "ms-dotnettools.vscode-dotnet-runtime",
            "ms-vscode.makefile-tools",
@@ -161,20 +162,23 @@ If you haven't already, install Docker Desktop with WSL2 integration:
 
 ### Part 4: Open in Dev Container
 
-1. **Open the project in VS Code**:
+**Prerequisites**: You must have the **Dev Containers** extension installed in VS Code before opening a dev container.
+
+1. **Install the Dev Containers extension** (if you haven't already):
+   - Open VS Code
+   - Click the Extensions icon in the left sidebar (or press `Ctrl+Shift+X`)
+   - Search for "Dev Containers"
+   - Install the official extension by Microsoft (`ms-vscode-remote.remote-containers`)
+
+2. **Open the project in VS Code**:
 
    ```bash
    code .
    ```
 
-2. **Install the Remote - Containers extension**:
-   - Click the Extensions icon in VS Code
-   - Search for "Remote - Containers"
-   - Install the extension by Microsoft
-
 3. **Open in dev container**:
    - Press `Ctrl+Shift+P` (or `Cmd+Shift+P` on macOS) to open Command Palette
-   - Type "Dev Container: Reopen in Container"
+   - Type "Dev Containers: Reopen in Container"
    - Select it and wait for the container to build
    - VS Code will reload inside the container environment
 
@@ -208,7 +212,7 @@ If you haven't already, install Docker Desktop with WSL2 integration:
 
    ### Prerequisites
    - Docker Desktop with WSL2 enabled
-   - VS Code with Remote - Containers extension
+   - VS Code with Dev Containers extension
    - Git installed in WSL2
 
    ### Development Setup
