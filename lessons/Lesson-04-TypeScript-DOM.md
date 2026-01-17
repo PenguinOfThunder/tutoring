@@ -298,6 +298,133 @@ function addTask(title: string, description: string): void {
 
 ---
 
+## Setting Up TypeScript in Your Project
+
+Before you start writing TypeScript, you need to configure your project to compile `.ts` files to JavaScript. Here's how:
+
+### Step 1: Install TypeScript
+
+Open your terminal in the project root and install TypeScript as a development dependency:
+
+```bash
+npm install --save-dev typescript
+```
+
+This installs the TypeScript compiler. The `--save-dev` flag means it's only needed for development, not in production.
+
+### Step 2: Initialize TypeScript Configuration
+
+Create a `tsconfig.json` file in your project root. This tells TypeScript how to compile your code:
+
+```bash
+npx tsc --init
+```
+
+This generates a `tsconfig.json` with default settings. You can customize it, but here's a minimal recommended configuration for your task app:
+
+```json
+{
+  "compilerOptions": {
+    "target": "ES2020",                    // Compile to modern JavaScript
+    "module": "ES2020",                    // Use ES modules
+    "lib": ["ES2020", "DOM"],              // Include DOM APIs
+    "outDir": "./frontend",                // Where compiled .js goes
+    "rootDir": "./frontend",               // Where .ts files are
+    "strict": true,                        // Enable strict type checking
+    "esModuleInterop": true,               // Better CommonJS compatibility
+    "skipLibCheck": true,                  // Skip type checking of declaration files
+    "forceConsistentCasingInFileNames": true // Enforce consistent naming
+  },
+  "include": ["frontend/**/*.ts"],         // Compile all .ts files in frontend
+  "exclude": ["node_modules"]              // Don't compile dependencies
+}
+```
+
+### Step 3: Create Your TypeScript File
+
+Create `frontend/app.ts` (note the `.ts` extension):
+
+```typescript
+// Your TypeScript code goes here
+console.log('TypeScript is working!');
+```
+
+### Step 4: Compile TypeScript to JavaScript
+
+Run the TypeScript compiler:
+
+```bash
+npx tsc
+```
+
+This compiles all `.ts` files to `.js` files in the output directory. You should see `frontend/app.js` created.
+
+**Note**: You'll need to run `npx tsc` after every change to your `.ts` files. For development, you can use watch mode:
+
+```bash
+npx tsc --watch
+```
+
+This automatically recompiles when you save a `.ts` file.
+
+### Step 5: Link the Compiled JavaScript in HTML
+
+Update your `frontend/index.html` to reference the compiled JavaScript file:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Manager</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Your HTML here -->
+  
+  <!-- Link the compiled JavaScript at the bottom -->
+  <script src="app.js"></script>
+</body>
+</html>
+```
+
+**Important**: The browser runs `.js` files, not `.ts` files. TypeScript compiles to JavaScript behind the scenes.
+
+### Development Workflow
+
+Here's how you'll work with TypeScript:
+
+```
+1. Edit TypeScript file (.ts)
+   ↓
+2. Save the file
+   ↓
+3. TypeScript compiler automatically recompiles (if using --watch)
+   ↓
+4. Refresh your browser to see changes
+   ↓
+5. Debug in DevTools (Browser uses .js file)
+```
+
+**Tip**: Use Live Server (from Lesson 2) to auto-refresh your browser when files change. Combined with `tsc --watch`, this creates a smooth development experience.
+
+### Project Structure After Setup
+
+After setting up TypeScript, your project structure looks like:
+
+```
+frontend/
+  ├── index.html          (HTML template)
+  ├── styles.css          (CSS styles)
+  ├── app.ts              (TypeScript source - you edit this)
+  ├── app.js              (Compiled JavaScript - auto-generated)
+  └── tsconfig.json       (TypeScript configuration)
+```
+
+---
+
 ## In-Class Exercise (15–20 minutes)
 
 **Task: Add TypeScript to handle task creation and deletion**
