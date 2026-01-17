@@ -35,6 +35,177 @@ Build a polished, responsive UI using Bootstrap components and utilities; reinfo
 
 ---
 
+## Deep Dive: Key Topics
+
+### Bootstrap: What and Why?
+
+**Bootstrap** is a CSS framework that provides pre-built, tested components and a responsive grid system. Instead of building everything from scratch, you use Bootstrap classes to quickly add buttons, forms, navbars, and more.
+
+**Why use it?**
+- **Speed**: Pre-styled components mean less CSS to write
+- **Consistency**: All components follow the same design system
+- **Responsiveness**: Built-in support for mobile, tablet, and desktop
+- **Community**: Extensive documentation and thousands of ready-made components
+
+**How to use Bootstrap**:
+1. Include Bootstrap via CDN (content delivery network) in your HTML `<head>`
+2. Use Bootstrap classes like `btn`, `container`, `row`, `col` in your HTML
+3. Customize with your own CSS when needed
+
+### The Bootstrap Grid System
+
+Bootstrap uses a **12-column grid** to organize page layouts. Think of it as invisible columns that guide where content goes.
+
+```html
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">Half width on medium+ screens</div>
+    <div class="col-md-6">Half width on medium+ screens</div>
+  </div>
+</div>
+```
+
+Key terms:
+- **Container**: Wraps your grid (`container` or `container-fluid`)
+- **Row**: Groups columns horizontally
+- **Col**: Individual column (can span 1–12 columns)
+- **Breakpoints**: `sm` (≥576px), `md` (≥768px), `lg` (≥992px), `xl` (≥1200px)
+
+Example: `col-md-8 offset-md-2` means "8 columns wide on medium screens, centered with 2-column offset."
+
+### Responsive Breakpoints
+
+Bootstrap lets you specify different layouts for different screen sizes:
+
+```html
+<div class="col-12 col-md-6 col-lg-4">
+  This is 12 columns on mobile, 6 on tablets, 4 on desktops
+</div>
+```
+
+**Why?** On a phone, you want full-width content. On a desktop, you can fit 3 items side-by-side.
+
+### CSS Box Model: Margin, Padding, Border
+
+Every element in CSS is surrounded by invisible space. Understanding this is crucial:
+
+```
+┌─────────────────────────────────────┐
+│         Margin (outside)            │
+│  ┌─────────────────────────────┐    │
+│  │ Border                      │    │
+│  │ ┌───────────────────────┐   │    │
+│  │ │ Padding (inside)      │   │    │
+│  │ │ ┌─────────────────┐   │   │    │
+│  │ │ │ Content         │   │   │    │
+│  │ │ └─────────────────┘   │   │    │
+│  │ └───────────────────────┘   │    │
+│  └─────────────────────────────┘    │
+└─────────────────────────────────────┘
+```
+
+- **Margin**: Space *outside* the element (pushes other elements away)
+- **Border**: Line around the element
+- **Padding**: Space *inside* the element (pushes content away from edge)
+- **Content**: The actual text, images, etc.
+
+Example:
+```css
+button {
+  margin: 10px;      /* 10px space outside */
+  padding: 12px 20px; /* 12px top/bottom, 20px left/right inside */
+  border: 2px solid blue;
+}
+```
+
+### Flexbox: Easy Layouts
+
+**Flexbox** is a modern CSS layout method that makes it easy to align and distribute space among items.
+
+```html
+<div style="display: flex; gap: 20px;">
+  <div>Item 1</div>
+  <div>Item 2</div>
+  <div>Item 3</div>
+</div>
+```
+
+Key flexbox concepts:
+- **`display: flex`**: Activates flexbox on a container
+- **`gap`**: Space between items
+- **`justify-content`**: Align items horizontally (`flex-start`, `center`, `space-between`)
+- **`align-items`**: Align items vertically (`flex-start`, `center`, `flex-end`)
+
+Example: Center items horizontally and vertically:
+```css
+.flex-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+```
+
+Bootstrap uses flexbox internally, so many Bootstrap classes (like `row`) automatically use flexbox.
+
+### Media Queries: Responsive CSS
+
+**Media queries** let you apply different CSS based on screen size:
+
+```css
+/* Default: Mobile-first */
+body {
+  font-size: 14px;
+}
+
+/* Tablets and larger */
+@media (min-width: 768px) {
+  body {
+    font-size: 16px;
+  }
+}
+
+/* Desktops */
+@media (min-width: 1200px) {
+  body {
+    font-size: 18px;
+  }
+}
+```
+
+**Mobile-first approach**: Start with mobile styles, then add larger-screen styles with media queries. This ensures your site works on phones first.
+
+### CSS Specificity and Custom Overrides
+
+Sometimes you need to override Bootstrap's default styles. CSS applies the most *specific* rule.
+
+**Specificity (from lowest to highest)**:
+1. Element selectors: `button` (lowest specificity)
+2. Class selectors: `.btn`
+3. ID selectors: `#my-button`
+4. Inline styles: `style="color: red;"` (highest specificity)
+
+**To override Bootstrap**, use a class selector (same specificity) defined *after* Bootstrap, or be more specific:
+
+```css
+/* Bootstrap defines */
+.btn-primary {
+  background-color: #007bff;
+}
+
+/* You can override with same specificity (must come after Bootstrap in CSS) */
+.btn-primary {
+  background-color: #0056b3; /* Darker blue */
+}
+
+/* Or use CSS variables (recommended) */
+:root {
+  --bs-primary: #0056b3;
+}
+```
+
+---
+
 ## In-Class Exercise (15–20 minutes)
 
 **Task: Add Bootstrap and style the task app UI**
@@ -150,11 +321,14 @@ Build a polished, responsive UI using Bootstrap components and utilities; reinfo
 
 **Tasks**:
 
-1. **Read**: [MDN — CSS Basics](https://developer.mozilla.org/en-US/docs/Learn/CSS/First_steps)
-2. **Read**: [MDN — Box Model](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/The_box_model)
-3. **Read**: [MDN — Flexbox](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox)
-4. **Read**: [MDN — Responsive Design](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Responsive_Design)
-5. **Practice**: Implement a mobile-friendly layout where the form and task list stack vertically on small screens
+1. **Read**: [Bootstrap Getting Started](https://getbootstrap.com/docs/5.3/getting-started/introduction/) — Learn what Bootstrap is and how to include it in a project
+2. **Read**: [Bootstrap Grid System](https://getbootstrap.com/docs/5.3/layout/grid/) — Understand the 12-column responsive grid
+3. **Read**: [Bootstrap Components](https://getbootstrap.com/docs/5.3/components/buttons/) — Explore buttons, forms, cards, and other components
+4. **Read**: [MDN — CSS Basics](https://developer.mozilla.org/en-US/docs/Learn/CSS/First_steps)
+5. **Read**: [MDN — Box Model](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/The_box_model)
+6. **Read**: [MDN — Flexbox](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox)
+7. **Read**: [MDN — Responsive Design](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Responsive_Design)
+8. **Practice**: Implement a mobile-friendly layout where the form and task list stack vertically on small screens
 
 **Optional Challenge**:
 
@@ -166,7 +340,12 @@ Build a polished, responsive UI using Bootstrap components and utilities; reinfo
 
 | Topic | Link | Notes |
 |-------|------|-------|
-| Bootstrap Docs | [Bootstrap 5.3](https://getbootstrap.com/docs/5.3/) | Components and grid |
+| Bootstrap Getting Started | [Bootstrap Introduction](https://getbootstrap.com/docs/5.3/getting-started/introduction/) | Overview and setup |
+| Bootstrap Grid | [Bootstrap Grid System](https://getbootstrap.com/docs/5.3/layout/grid/) | 12-column responsive layout |
+| Bootstrap Components | [Bootstrap Buttons](https://getbootstrap.com/docs/5.3/components/buttons/) | Pre-built UI components |
+| Bootstrap Utilities | [Bootstrap Utilities](https://getbootstrap.com/docs/5.3/utilities/api/) | Spacing, colors, display helpers |
+| Bootstrap Forms | [Bootstrap Forms](https://getbootstrap.com/docs/5.3/forms/overview/) | Form styling and validation |
+| Bootstrap Docs | [Bootstrap 5.3](https://getbootstrap.com/docs/5.3/) | Complete reference |
 | CSS Basics | [MDN — CSS Basics](https://developer.mozilla.org/en-US/docs/Learn/CSS/First_steps) | Selectors, properties |
 | Box Model | [MDN — Box Model](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/The_box_model) | Margin, padding, border |
 | Flexbox | [MDN — Flexbox](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox) | Modern layout method |

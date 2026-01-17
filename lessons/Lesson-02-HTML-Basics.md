@@ -35,6 +35,85 @@ Build semantic page structure for the task/notes web app using semantic HTML ele
 
 ---
 
+## Understanding Semantic HTML and Accessibility
+
+### What Does "Semantic" Mean?
+
+**Semantic HTML** means using HTML elements that accurately describe their content and purpose. Instead of relying on generic `<div>` and `<span>` tags, semantic HTML uses elements like `<nav>`, `<header>`, `<main>`, `<article>`, `<button>`, and `<form>` — each with a specific meaning.
+
+For example:
+- A generic approach: `<div id="navigation"><a href="/home">Home</a></div>`
+- A semantic approach: `<nav><a href="/home">Home</a></nav>`
+
+The semantic version is clearer in intent. The `<nav>` element explicitly says "this is navigation."
+
+### How Semantic HTML Helps Accessibility
+
+Accessibility (often abbreviated as a11y) means ensuring your web content is usable by **everyone**, including people with disabilities. Semantic HTML is foundational to accessibility because:
+
+1. **Screen Readers Understand Structure**: 
+   - Screen reader software (like NVDA, JAWS, or VoiceOver) relies on HTML structure to help blind and low-vision users navigate your page.
+   - A `<button>` element is announced as a button; a `<div class="button">` is just text.
+   - A `<form>` element signals that inputs are grouped together logically.
+
+2. **Keyboard Navigation Works**:
+   - Semantic elements like `<button>`, `<a>`, and `<form>` are keyboard-navigable by default.
+   - Screen reader users rely on keyboard navigation because they can't use a mouse.
+   - A `<div>` won't be keyboard-accessible without extra JavaScript.
+
+3. **Assistive Technology Integration**:
+   - Screen readers announce the purpose of elements (e.g., "navigation", "heading", "search form").
+   - This helps users understand the page structure quickly without having to listen to every word.
+
+4. **Browser and Device Support**:
+   - Semantic elements work consistently across browsers and devices.
+   - They provide built-in keyboard handling and ARIA roles automatically.
+
+### Real-World Example
+
+A page using **non-semantic** markup:
+```html
+<div id="header">
+  <div id="title">My Tasks</div>
+  <div id="nav">
+    <a href="#all">All</a>
+    <a href="#completed">Completed</a>
+  </div>
+</div>
+```
+
+A blind user with a screen reader hears: "div... div... div... link all... link completed..."  
+They have no idea this section is a header or that it contains navigation.
+
+The same page using **semantic** markup:
+```html
+<header>
+  <h1>My Tasks</h1>
+  <nav>
+    <a href="#all">All</a>
+    <a href="#completed">Completed</a>
+  </nav>
+</header>
+```
+
+A blind user with a screen reader hears: "banner... heading level 1 my tasks... navigation... link all... link completed..."  
+They immediately understand the page structure.
+
+### Semantic Elements You'll Use
+
+- `<header>`: Page or section header
+- `<nav>`: Navigation links
+- `<main>`: Primary content area
+- `<section>`: Thematic grouping of content
+- `<article>`: Self-contained content (like a blog post)
+- `<footer>`: Footer information
+- `<button>`: Interactive button (not `<div class="btn">`)
+- `<form>`: Form container
+- `<label>`: Text label for form inputs
+- `<h1>–<h6>`: Headings (convey structure)
+
+---
+
 ## In-Class Exercise (15–20 minutes)
 
 **Task: Build the semantic HTML structure for the task app**
@@ -109,6 +188,59 @@ Build semantic page structure for the task/notes web app using semantic HTML ele
    git add frontend/index.html
    git commit -m "Add semantic HTML structure for task app"
    ```
+
+---
+
+## Previewing Your HTML in VSCode and Your Browser
+
+After you've created your HTML file, you'll want to see how it looks in a browser. Here are the best ways to preview your work:
+
+### Option 1: Using Live Server Extension (Recommended)
+
+**Live Server** is a VSCode extension that automatically reloads your browser when you save changes.
+
+1. **Install Live Server**:
+   - Open the Extensions view in VSCode (`Ctrl+Shift+X` or `Cmd+Shift+X`)
+   - Search for "Live Server" (by Ritwick Dey)
+   - Click Install
+
+2. **Start Live Server**:
+   - Right-click on your `index.html` file in the file explorer
+   - Select "Open with Live Server"
+   - Your default browser will open automatically, typically at `http://localhost:5500`
+
+3. **Edit and Reload**:
+   - Make changes to your HTML file and save (`Ctrl+S` or `Cmd+S`)
+   - The browser automatically reloads to show your changes
+   - This is much faster than manually refreshing
+
+### Option 2: Open HTML File Directly
+
+If you don't want to install an extension, you can open the file in your browser manually:
+
+1. **Right-click** on `frontend/index.html` in VSCode
+2. Select **"Reveal in File Explorer"** (or **"Open in Finder"** on macOS)
+3. **Double-click** the file to open it in your default browser
+4. To see changes, save the file and **refresh your browser** (`Ctrl+R` or `Cmd+R`)
+
+**Note**: This method doesn't auto-reload, so you'll need to refresh manually after each change.
+
+### Option 3: Use VSCode's Preview
+
+Some versions of VSCode include a built-in preview feature:
+
+1. **Right-click** on `index.html`
+2. Look for **"Preview"** or **"Open Preview"** option
+3. A preview pane may open directly in VSCode
+
+**Note**: This doesn't always work for all features, so Live Server is usually better.
+
+### Tips for Testing Your HTML
+
+- **Check the Browser Console**: Press `F12` or `Ctrl+Shift+I` to open Developer Tools and look for any errors
+- **Validate Your HTML**: Copy your HTML to [W3C HTML Validator](https://validator.w3.org/) to catch markup errors
+- **Test Form Inputs**: Try filling in your form inputs to make sure they work as expected
+- **Test on Mobile**: Use Developer Tools (`F12` → click the device icon) to preview your page on different screen sizes
 
 ---
 

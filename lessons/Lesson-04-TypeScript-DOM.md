@@ -35,6 +35,269 @@ DOM manipulation and event handling using TypeScript types; add interactivity to
 
 ---
 
+## Deep Dive: Key Topics
+
+### DOM Basics: What is the DOM?
+
+The **DOM (Document Object Model)** is a JavaScript representation of your HTML page. It's a tree structure where each HTML element is a node that you can select, modify, create, or delete.
+
+```
+Document
+  └─ html
+      ├─ head
+      │   └─ title
+      └─ body
+          ├─ header
+          └─ main
+              └─ section
+                  └─ ul#task-list
+                      └─ li
+```
+
+JavaScript lets you interact with this tree to make pages interactive. When you change the DOM, the browser automatically updates what the user sees.
+
+### Selecting Elements from the DOM
+
+The first step in DOM manipulation is finding the elements you want to work with:
+
+```typescript
+// Select by ID (unique identifier) - returns single element or null
+const form = document.getElementById('task-form');
+
+// Select by class name - returns a collection
+const buttons = document.getElementsByClassName('btn');
+
+// Select by CSS selector - most flexible and recommended
+const taskList = document.querySelector('#task-list'); // First match
+const allButtons = document.querySelectorAll('.btn'); // All matches
+
+// Always check if element exists before using it
+if (taskList) {
+  taskList.innerHTML = 'Updated!';
+}
+
+// Or use optional chaining (?.) for cleaner code
+document.getElementById('task-list')?.addEventListener('click', handleClick);
+```
+
+**Best practice**: Use `querySelector` and `querySelectorAll` — they support any CSS selector and are the most flexible.
+
+### Type Assertions: Telling TypeScript About DOM Elements
+
+When you select a DOM element, TypeScript doesn't automatically know what *type* of element it is. You need to tell it using **type assertions**:
+
+```typescript
+// Without type assertion - TypeScript sees it as generic Element
+const input = document.getElementById('task-input');
+// input.value -> Error! Element type doesn't have a 'value' property
+
+// With type assertion using 'as' keyword
+const input = document.getElementById('task-input') as HTMLInputElement;
+input.value = 'Hello'; // Now TypeScript knows value exists
+
+// You can also use angle brackets (older syntax, less common)
+const input = <HTMLInputElement>document.getElementById('task-input');
+```
+
+Common DOM element types you'll use:
+- `HTMLInputElement` — Text, checkbox, radio, hidden inputs
+- `HTMLTextAreaElement` — Multi-line text
+- `HTMLFormElement` — Form containers
+- `HTMLButtonElement` — Buttons
+- `HTMLUListElement` / `HTMLOListElement` — Lists
+- `HTMLElement` — Generic element (any HTML tag)
+
+### Creating and Modifying Elements
+
+You can dynamically create new HTML elements and add them to the page:
+
+```typescript
+// Create a new element
+const listItem = document.createElement('li');
+
+// Set text content (safe - no HTML parsing)
+listItem.textContent = 'Buy milk';
+
+// Set CSS classes
+listItem.className = 'list-group-item';
+
+// Or add classes one at a time
+listItem.classList.add('active', 'highlight');
+listItem.classList.remove('highlight');
+
+// Set HTML (careful with user input - can create security issues!)
+listItem.innerHTML = '<strong>Buy milk</strong>';
+
+// Set attributes
+listItem.setAttribute('data-id', '123');
+listItem.id = 'task-1';
+
+// Add the element to the page
+const taskList = document.getElementById('task-list') as HTMLUListElement;
+taskList.appendChild(listItem);
+
+// Remove from the page
+listItem.remove();
+```
+
+**Important**: Use `textContent` for user-provided data to prevent security attacks. Only use `innerHTML` for trusted content you control.
+
+### Events and Event Listeners
+
+**Events** are actions users take (clicks, form submissions, typing, etc.). You respond to events by adding **event listeners**:
+
+```typescript
+// Button click
+const button = document.querySelector('button');
+button?.addEventListener('click', (event: Event) => {
+  console.log('Button clicked!');
+});
+
+// Form submission
+const form = document.getElementById('task-form') as HTMLFormElement;
+form.addEventListener('submit', (event: Event) => {
+  event.preventDefault(); // Prevent page reload
+  console.log('Form submitted');
+});
+
+// Input changes
+const input = document.getElementById('task-input') as HTMLInputElement;
+input.addEventListener('change', (event: Event) => {
+  const target = event.target as HTMLInputElement;
+  console.log('New value:', target.value);
+});
+
+// Keyboard input (fires repeatedly while typing)
+input.addEventListener('input', (event: Event) => {
+  console.log('User typing...');
+});
+```
+
+Common events:
+- `click` — User clicked an element
+- `submit` — Form was submitted
+- `change` — Input value changed and focus lost
+- `input` — User typed something (fires continuously)
+- `keydown` / `keyup` — Keyboard key pressed or released
+
+### Understanding preventDefault
+
+By default, HTML forms reload the page when submitted. In single-page apps, you prevent this:
+
+```typescript
+const form = document.getElementById('task-form') as HTMLFormElement;
+
+form.addEventListener('submit', (event: Event) => {
+  event.preventDefault(); // Don't reload the page!
+  
+  // Get values from form inputs
+  const titleInput = document.getElementById('task-input') as HTMLInputElement;
+  const descInput = document.getElementById('task-desc') as HTMLTextAreaElement;
+  
+  // Process the data (add task, send to server, etc.)
+  addTask(titleInput.value, descInput.value);
+  
+  // Clear the form for next entry
+  form.reset();
+});
+```
+
+### TypeScript Interfaces for Type-Safe Data
+
+**Interfaces** define the shape of your data — they're like blueprints. They make code self-documenting and prevent bugs:
+
+```typescript
+// Define what a Task should look like
+interface Task {
+  id: number;
+  title: string;
+  description: string;
+  completed: boolean;
+  createdAt: Date;
+}
+
+// Now you can create tasks with guaranteed structure
+const newTask: Task = {
+  id: 1,
+  title: 'Buy milk',
+  description: 'At the grocery store',
+  completed: false,
+  createdAt: new Date()
+};
+
+// TypeScript will error if you forget properties or use wrong types
+const badTask: Task = {
+  id: 'one', // Error: string instead of number
+  title: 'Buy milk'
+  // Error: missing description, completed, createdAt
+};
+```
+
+### In-Memory Storage: Keeping Tasks in an Array
+
+During the app's session, you store tasks in a JavaScript array. This data persists only while the page is open (not after refresh):
+
+```typescript
+let tasks: Task[] = []; // Array of Tasks
+let nextId = 1; // Counter for unique IDs
+
+// Add a task to memory
+function addTask(title: string, description: string): void {
+  const task: Task = {
+    id: nextId++, // Increment after use
+    title,
+    description,
+    completed: false,
+    createdAt: new Date()
+  };
+  tasks.push(task); // Add to array
+  renderTasks(); // Update the UI
+}
+
+// Remove a task from memory
+function deleteTask(id: number): void {
+  tasks = tasks.filter(task => task.id !== id); // Keep all except the one to delete
+  renderTasks(); // Update the UI
+}
+```
+
+### Separation of Concerns: Data Layer vs. UI Layer
+
+A key principle is keeping **data** (your tasks array) separate from **UI** (the DOM):
+
+```typescript
+// Data Layer - stores information
+let tasks: Task[] = [];
+
+// UI Layer - displays information
+function renderTasks(): void {
+  const taskList = document.getElementById('task-list') as HTMLUListElement;
+  taskList.innerHTML = ''; // Clear existing items
+  
+  // Loop through data and create corresponding DOM elements
+  tasks.forEach(task => {
+    const li = document.createElement('li');
+    li.textContent = task.title;
+    taskList.appendChild(li);
+  });
+}
+
+// Logic Layer - performs operations
+function addTask(title: string, description: string): void {
+  // Modify data
+  tasks.push({ id: nextId++, title, description, completed: false, createdAt: new Date() });
+  // Update UI to reflect data changes
+  renderTasks();
+}
+```
+
+**Why separate?** It makes code:
+- **Testable** — Test data logic without worrying about the DOM
+- **Debuggable** — Data is independent of how it's displayed
+- **Maintainable** — Change how you render without touching data logic
+
+---
+
 ## In-Class Exercise (15–20 minutes)
 
 **Task: Add TypeScript to handle task creation and deletion**
@@ -136,12 +399,12 @@ DOM manipulation and event handling using TypeScript types; add interactivity to
 
 **Tasks**:
 
-1. **Read**: [TypeScript Handbook — Basic Types](https://www.typescriptlang.org/docs/handbook/2/basic-types.html)
-2. **Read**: [MDN — Web Storage (localStorage)](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API)
-3. **Practice**: Add localStorage persistence to save tasks between page reloads
+1. **Read**: [MDN — DOM Manipulation](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model)
+2. **Read**: [TypeScript Handbook — Basic Types](https://www.typescriptlang.org/docs/handbook/2/basic-types.html)
+3. **Read**: [MDN — Web Storage (localStorage)](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API)
+4. **Practice**: Add localStorage persistence to save tasks between page reloads
    - Save tasks when added or deleted
    - Load tasks on page load
-4. **Read**: [MDN — DOM Manipulation](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model)
 
 **Optional Challenge**:
 
