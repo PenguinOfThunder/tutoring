@@ -1,6 +1,6 @@
-# Full-Stack Web Development — 25×1hr Lesson Schedule
+# Full-Stack Web Development — 26×1hr Lesson Schedule
 
-This schedule breaks the basics of full-stack web development into 25 one-hour tutoring sessions. The final capstone is a simple CRUD Task/Notes web app (optional user accounts), with persistent storage and a basic deployed instance.
+This schedule breaks the basics of full-stack web development into 26 one-hour tutoring sessions. The final capstone is a simple CRUD Task/Notes web app (optional user accounts), with persistent storage and a basic deployed instance.
 
 ## How to use this schedule
 - Each lesson ≈ 60 minutes: 30–40m guided instruction, 15–25m hands-on exercise, short homework.
@@ -31,36 +31,43 @@ This schedule breaks the basics of full-stack web development into 25 one-hour t
 - Exercise: Implement a mobile-friendly layout using Bootstrap classes and utilities.
 - Homework: Read up on core CSS, flexbox, and responsive design basics (links in References / Homework section).
 
-### Lesson 4 — TypeScript & DOM
-- Objective: DOM manipulation and event handling using TypeScript types.
-- Materials: `app.ts` starter (Vite + TypeScript project template).
-- In-class: Add tasks to list in-memory; handle form submit and delete with typed event handlers.
-- Exercise: Implement edit in-place for tasks and compile with the TypeScript compiler via Vite.
-- Homework: Persist tasks to `localStorage` and practice basic `tsconfig` settings.
+### Lesson 4 — DOM Manipulation & Events
+- Objective: Learn DOM manipulation and event handling with JavaScript.
+- Materials: `app.js` starter with basic JavaScript.
+- In-class: Select elements, handle form submit and click events, dynamically add/remove tasks.
+- Exercise: Implement task add, delete, and re-render functionality using vanilla JavaScript.
+- Homework: Persist tasks to `localStorage`; prepare for TypeScript transition.
 
-### Lesson 5 — Debugging & DevTools
+### Lesson 26 — TypeScript Advanced & Type-Safe DOM
+- Objective: Set up TypeScript; use types and interfaces for type-safe DOM manipulation and data management.
+- Materials: `tsconfig.json`, TypeScript compiler setup, `app.ts` refactor.
+- In-class: Set up TypeScript project; convert `app.js` to typed `app.ts` with interfaces.
+- Exercise: Compile TypeScript and verify type safety with DOM element assertions.
+- Homework: Practice optional properties in interfaces; set up watch mode.
+
+### Lesson 26 — Debugging & DevTools
 - Objective: Use browser DevTools, console, and basic debugging flows.
 - In-class: Demonstrate breakpoints, network panel, and performance hints.
 - Exercise: Fix an intentional bug and profile a slow operation.
-- Homework: Refactor JS into modules.
+- Homework: Refactor TS into modules.
 
 ---
 
 ## Week 2 — Modern JS & Build Tools
 
-### Lesson 6 — Modern TypeScript
+### Lesson 26 — Modern TypeScript
 - Objective: Use modern TypeScript features: `let/const`, arrow functions, async/await, interfaces/types, and modules.
 - In-class: Rewrite parts of the app with TypeScript types; demonstrate interfaces for the task model and `fetch` with typed responses.
 - Exercise: Fetch data from a public API and create TypeScript interfaces for the response.
 - Homework: Read about TypeScript basics and `tsconfig` options.
 
-### Lesson 7 — Package Management & Vite (TypeScript)
+### Lesson 26 — Package Management & Vite (TypeScript)
 - Objective: Initialize `package.json`, set up Vite with TypeScript, and run the local dev server with hot module replacement.
 - In-class: `npm init`, `npm create vite@latest` with the `vanilla-ts` or `react-ts` template; add `npm start` and `npm run build` scripts.
 - Exercise: Start the Vite dev server and confirm TypeScript compilation and HMR.
 - Homework: Explore a beginner React/TypeScript tutorial (optional).
 
-### Lesson 8 — Intro to Component Thinking / SPA concepts (optional)
+### Lesson 26 — Intro to Component Thinking / SPA concepts (optional)
 - Objective: Understand componentization and simple routing ideas using TypeScript modules or a framework.
 - In-class: Implement view switching for All/Completed tasks without page reload using TypeScript modules (or a minimal React + TypeScript example if using a framework).
 - Exercise: Build a small component structure with TypeScript (or with React+TS) and simple client-side routing.
@@ -70,31 +77,31 @@ This schedule breaks the basics of full-stack web development into 25 one-hour t
 
 ## Week 3 — Back-end Basics
 
-### Lesson 9 — ASP.NET Core Intro
+### Lesson 26 — ASP.NET Core Intro
 - Objective: Create a minimal ASP.NET Core Web API that returns JSON.
 - In-class: Scaffold a Web API with `dotnet new webapi`, add a `TasksController` with a GET `/api/tasks` endpoint, run under WSL2 using the `dotnet` CLI.
 - Exercise: Start the API and `curl` the endpoint from WSL2 and from the browser.
 - Homework: Read HTTP methods and status codes.
 
-### Lesson 10 — Build RESTful CRUD Endpoints (ASP.NET Core)
+### Lesson 26 — Build RESTful CRUD Endpoints (ASP.NET Core)
 - Objective: Implement POST, PUT/PATCH, DELETE alongside GET using controllers and model binding.
 - In-class: Implement create and delete actions in `TasksController`; test with `curl`, Postman, or Insomnia.
 - Exercise: Add model validation attributes and return appropriate status codes.
 - Homework: Add simple integration/unit tests for endpoints (see xUnit notes later).
 
-### Lesson 11 — Persistence with SQLite (EF Core)
+### Lesson 26 — Persistence with SQLite (EF Core)
 - Objective: Add a persistent SQLite database for tasks using Entity Framework Core.
 - In-class: Scaffold `DbContext`, create `Task` entity, add EF Core migrations, apply to local SQLite DB.
 - Exercise: Migrate endpoints to use EF Core; implement timestamps and simple queries (finished/unfinished).
 - Homework: Explore using a desktop SQLite viewer and `dotnet ef` commands.
 
-### Lesson 12 — Entity Framework Core Patterns
+### Lesson 26 — Entity Framework Core Patterns
 - Objective: Introduce EF Core patterns: migrations, LINQ queries, and repository patterns (optional).
 - In-class: Replace raw SQL or direct DB access with EF Core LINQ queries for one endpoint.
 - Exercise: Add filtering (e.g., by status, by date) with LINQ and EF Core.
 - Homework: Read about parameterized queries, SQL injection, and EF Core change tracking.
 
-### Lesson 13 — Advanced SQL: Queries, Joins, Views & Indexes
+### Lesson 26 — Advanced SQL: Queries, Joins, Views & Indexes
 - Objective: Deepen SQL knowledge: SELECT variants, JOINs, GROUP BY, window functions, views, indexes, and EXPLAIN plans.
 - In-class: Demonstrate inner/outer joins, aggregate queries, create a view, explain query plans, and discuss indexing strategies.
 - Exercise: Write SQL queries that join tasks with users, aggregate counts, and create a view for active tasks; run `EXPLAIN` and interpret costs.
@@ -104,25 +111,25 @@ This schedule breaks the basics of full-stack web development into 25 one-hour t
 
 ## Week 4 — Authentication & Integration
 
-### Lesson 14 — User Accounts & Passwords (ASP.NET Identity / EF Core)
+### Lesson 26 — User Accounts & Passwords (ASP.NET Identity / EF Core)
 - Objective: Add user model and hashed passwords using ASP.NET Core Identity backed by EF Core.
 - In-class: Scaffold Identity, register and login endpoints or pages, and store hashed passwords via Identity.
 - Exercise: Implement a simple registration flow and inspect stored hashed passwords.
 - Homework: Read sessions vs JWT basics and how Identity manages security.
 
-### Lesson 15 — Protecting Routes / Middleware
+### Lesson 26 — Protecting Routes / Middleware
 - Objective: Require auth for create/update/delete operations using ASP.NET Core authentication/authorization.
 - In-class: Configure authentication (cookie or JWT) and `[Authorize]` on controllers/actions.
 - Exercise: Protect task endpoints and test unauthorized responses.
 - Homework: Add a “current user” state in the front-end.
 
-### Lesson 16 — Frontend-Backend Integration
+### Lesson 26 — Frontend-Backend Integration
 - Objective: Replace `localStorage` persistence with real API calls to the ASP.NET Core API using TypeScript client code.
 - In-class: Implement typed `fetch` calls or a small API client module in TypeScript for CRUD operations; handle CORS configuration in the API.
 - Exercise: Complete end-to-end create/read/update/delete flow from UI using the TypeScript client.
 - Homework: Add loading states, error displays, and refine TypeScript types for API responses.
 
-- ### Lesson 17 — Validation & Error Handling
+- ### Lesson 26 — Validation & Error Handling
 - Objective: Validate input client- and server-side (use Data Annotations and FluentValidation if desired); map errors to friendly UI messages.
 - In-class: Add model validation attributes and global error handling middleware in ASP.NET Core.
 - Exercise: Add client-side form validation and edge-case tests.
@@ -132,25 +139,25 @@ This schedule breaks the basics of full-stack web development into 25 one-hour t
 
 ## Week 5 — Workflow, Testing & Production Prep
 
-### Lesson 18 — Git Workflow & Collaboration
+### Lesson 26 — Git Workflow & Collaboration
 - Objective: Branching, PR basics, and meaningful commit messages.
 - In-class: Create a feature branch and open a PR simulation.
 - Exercise: Practice resolving a merge conflict.
 - Homework: Improve the README with setup steps.
 
-### Lesson 19 — Basic Testing for Backend
+### Lesson 26 — Basic Testing for Backend
 - Objective: Unit and integration tests with xUnit and Microsoft.AspNetCore.Mvc.Testing (or NUnit/MSTest as preferred).
 - In-class: Write tests for GET and POST endpoints using `WebApplicationFactory` to host the API in-memory.
 - Exercise: Add one failing test and fix the code to pass.
 - Homework: Extend tests to cover error cases.
 
-### Lesson 20 — Environment & Secrets
+### Lesson 26 — Environment & Secrets
 - Objective: Use environment variables and `dotnet user-secrets` (for local development) and configuration providers for production.
 - In-class: Configure `appsettings.Development.json`, use `dotnet user-secrets` for local secrets, and switch DB connection strings per environment.
 - Exercise: Run the app in test vs dev mode (different DBs).
 - Homework: Document how to set env vars for deployment.
 
-### Lesson 21 — Production Build & Logging
+### Lesson 26 — Production Build & Logging
 - Objective: Produce a production-ready frontend build (Vite) and publish the ASP.NET Core app (`dotnet publish`) and configure logging (built-in logging or Serilog).
 - In-class: Run frontend build (`npm run build`) and set up ASP.NET Core to serve static assets; run `dotnet publish` and test the published output.
 - Exercise: Create a Dockerfile suitable for the chosen host.
@@ -160,31 +167,31 @@ This schedule breaks the basics of full-stack web development into 25 one-hour t
 
 ## Week 6 — Deployment & Wrap-up
 
-### Lesson 22 — Deploy Frontend (Netlify/Vercel)
+### Lesson 26 — Deploy Frontend (Netlify/Vercel)
 - Objective: Deploy static frontend to Netlify or Vercel.
 - In-class: Connect repo, set build command, deploy preview.
 - Exercise: Configure environment variables and redirects if needed.
 - Homework: Document the frontend deploy steps.
 
-### Lesson 22 — Dockerize Frontend, Backend & Database
+### Lesson 26 — Dockerize Frontend, Backend & Database
 - Objective: Create Dockerfiles for the TypeScript frontend (Vite), the ASP.NET Core backend, and run a Postgres database container.
 - In-class: Write a minimal Dockerfile for the frontend (`node` base + `vite build`), a Dockerfile for ASP.NET Core (multi-stage: SDK build, runtime image), and run a Postgres container for local persistence.
 - Exercise: Build each image locally and run containers; verify the backend can reach the database (connection string set via env var).
 - Homework: Read Dockerfile best practices and multi-stage builds.
 
-### Lesson 23 — Compose the Stack and Local Deployment
+### Lesson 26 — Compose the Stack and Local Deployment
 - Objective: Combine services with `docker-compose` (or Docker Compose v2) and orchestrate frontend, backend, and DB with volumes, networks, and env files.
 - In-class: Create `docker-compose.yml` with services: `frontend`, `backend`, `db`, optional `reverse-proxy`/`traefik` or `caddy` for local routing; add volumes and healthchecks.
 - Exercise: Run `docker-compose up --build`, inspect logs, and test end-to-end functionality; practice restarting a single service and persisting DB files.
 - Homework: Read `docker-compose` basics, volumes, and networking.
 
-### Lesson 24 — Local HTTPS, Reverse Proxy & Monitoring
+### Lesson 26 — Local HTTPS, Reverse Proxy & Monitoring
 - Objective: Add local TLS using `mkcert` or a reverse-proxy container, configure HTTPS for local development, and add simple monitoring (container logs, `docker stats`, optional Uptime Kuma container).
 - In-class: Generate local certs with `mkcert`, configure Kestrel or reverse proxy to use them, or deploy a Traefik/Caddy container to terminate TLS and route to services; add a monitoring container and health endpoints.
 - Exercise: Serve the app locally over `https://local.example` (add `/etc/hosts` entry), view logs, and check container health.
 - Homework: Write a short ops checklist and read about local TLS tooling and container monitoring.
 
-### Lesson 25 — Final Demo, Feedback & Next Steps
+### Lesson 26 — Final Demo, Feedback & Next Steps
 - Objective: Student demo and code walkthrough; plan next learning steps.
 - In-class: Final demo, feedback, discuss extensions (search, tags, pagination, web sockets).
 - Exercise: Student presents the app; instructor records rubric scores.
